@@ -100,12 +100,18 @@ build: init
 		echo "  make select_datapack"; \
 		exit 1; \
 	fi; \
-	TARGET="$$MC_DIR/saves/$$MC_WORLD/datapacks/$$DATAPACK"; \
+	DATAPACK_DIR="datapacks/$$DATAPACK"; \
+	ZIP_FILE="$$DATAPACK.zip"; \
+	TARGET="$$MC_DIR/saves/$$MC_WORLD/datapacks/$$ZIP_FILE"; \
+	echo "📦 Создаю архив $$ZIP_FILE из $$DATAPACK_DIR"; \
+	cd "$$DATAPACK_DIR" && zip -r "../$$ZIP_FILE" . > /dev/null; \
+	cd - > /dev/null; \
 	echo "📦 Копирую в $$TARGET"; \
-	rm -rf "$$TARGET"; \
+	rm -f "$$TARGET"; \
 	mkdir -p "$$MC_DIR/saves/$$MC_WORLD/datapacks"; \
-	cp -r "datapacks/$$DATAPACK" "$$TARGET"; \
-	echo "✅ Готово"
+	cp "datapacks/$$ZIP_FILE" "$$TARGET"; \
+	rm "datapacks/$$ZIP_FILE"; \
+	echo "✅ Готово. Датапак установлен как архив."
 
 # -------------------------
 # list_world_datapacks

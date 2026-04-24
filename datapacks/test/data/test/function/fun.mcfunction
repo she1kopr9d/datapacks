@@ -1,0 +1,1 @@
+tellraw @a {"text":"Trump joined the game", "color":"yellow"}
